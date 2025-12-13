@@ -3,6 +3,7 @@ from typing import Optional
 
 import pandas as pd
 from dateutil.relativedelta import relativedelta
+from dateutil.rrule import weekday
 
 
 def spending_by_category(transactions: pd.DataFrame, category: str, date: Optional[str] = None) -> pd.DataFrame:
@@ -16,7 +17,7 @@ def spending_by_category(transactions: pd.DataFrame, category: str, date: Option
     else:
         date = datetime.datetime.strptime(date, "%d.%m.%Y")
 
-    start_date = date - relativedelta(months = 3)
+    start_date = date - relativedelta(months=3)
     filter_transactions = df_transactions[
         (df_transactions["Категория"] == category) &
         (df_transactions["Дата операции"] >= start_date) &
@@ -25,8 +26,7 @@ def spending_by_category(transactions: pd.DataFrame, category: str, date: Option
     return filter_transactions
 
 
-def spending_by_weekday(transactions: pd.DataFrame,
-                        date: Optional[str] = None) -> pd.DataFrame:
+def spending_by_weekday(transactions: pd.DataFrame, date: Optional[str] = None) -> pd.DataFrame:
     """Функция возвращает средние траты в каждый из дней недели за последние три месяца (от переданной даты)."""
     df_transactions = transactions.copy()
     df_transactions["Дата операции"] = pd.to_datetime(df_transactions["Дата операции"], dayfirst=True)
@@ -37,7 +37,7 @@ def spending_by_weekday(transactions: pd.DataFrame,
     else:
         date = datetime.datetime.strptime(date, "%d.%m.%Y")
 
-    start_date  = date - relativedelta(months = 3)
+    start_date = date - relativedelta(months=3)
 
     filter_transactions = df_transactions[
         (df_transactions["Дата операции"] >= start_date) &
@@ -50,8 +50,35 @@ def spending_by_weekday(transactions: pd.DataFrame,
     return mean_transaction_amount_by_weekday
 
 
+def spending_by_workday(transactions: pd.DataFrame, date: Optional[str] = None) -> pd.DataFrame:
+    """Функция выводит средние траты в рабочий и в выходной день за последние три месяца (от переданной даты)."""
+    df_transactions = transactions.copy()
+    df_transactions["Дата операции"] = pd.to_datetime(df_transactions["Дата операции"], dayfirst=True)
+    df_transactions["День недели"] = df_transactions["Дата операции"].dt.weekday
+    df_transactions["Тип дня"] = df_transactions["День недели"].apply(lambda x: "Выходной" if x >= 5 else "Рабочий")
+
+    if date is None:
+        date = datetime.datetime.now()
+    else:
+        date = datetime.datetime.strptime(date, "%d.%m.%Y")
+
+    start_date = date - relativedelta(months=3)
+
+    filter_df_transactions = df_transactions[
+        (df_transactions["Дата операции"] >= start_date) &
+        (df_transactions["Дата операции"] <= date)
+    ]
+
+    workday_grouped = filter_df_transactions.groupby("Тип дня")
+
+    mean_transaction_amount_by_workday = workday_grouped["Сумма операции"].mean()
+
+    return mean_transaction_amount_by_workday
+
+
 if __name__ == "__main__":
     excel_data_transactions = pd.read_excel("C:\\Users\\Boo_D\\PycharmProjects\\Project_1\\data\\operations.xlsx")
     # print(excel_data_transactions.head())
     # print(spending_by_category(excel_data_transactions, "Фастфуд", "03.10.2021"))
     # print(spending_by_weekday(excel_data_transactions, "03.10.2021"))
+    print(spending_by_workday(excel_data_transactions, "03.10.2021"))
