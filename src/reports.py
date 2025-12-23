@@ -84,7 +84,7 @@ def spending_by_workday(transactions: pd.DataFrame, date: Optional[str] = None) 
         df_transactions = transactions.copy()
         df_transactions["Дата операции"] = pd.to_datetime(df_transactions["Дата операции"], dayfirst=True)
         df_transactions["День недели"] = df_transactions["Дата операции"].dt.weekday
-        df_transactions["Тип дня"] = df_transactions["День недели"].apply(lambda x: "Выходной" if x >= 5 else "Рабочий")
+        df_transactions["Тип дня"] = df_transactions["День недели"].apply(lambda x: "Выходной" if x>=5 else "Рабочий")
 
         if date is None:
             date = datetime.datetime.now()
