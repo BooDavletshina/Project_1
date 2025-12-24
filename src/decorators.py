@@ -22,7 +22,7 @@ def writing_as_json_file(funk):
         data = funk(*args, **kwargs)
 
         decorators_logger.info("Формирование наименования файла")
-        file_name = f"{funk.__name__}.json"
+        file_name = f"C:\\Users\\Boo_D\\PycharmProjects\\Project_1\\data\\{funk.__name__}.json"
 
         decorators_logger.info("Проверка типа данных")
         if isinstance(data, pd.DataFrame):

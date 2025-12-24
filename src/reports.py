@@ -112,6 +112,6 @@ def spending_by_workday(transactions: pd.DataFrame, date: Optional[str] = None) 
 if __name__ == "__main__":
     excel_data_transactions = pd.read_excel("C:\\Users\\Boo_D\\PycharmProjects\\Project_1\\data\\operations.xlsx")
     # print(excel_data_transactions.head())
-    print(spending_by_category(excel_data_transactions, "Фастфуд", "03.10.2021"))
-    print(spending_by_weekday(excel_data_transactions, "03.10.2021"))
+    # print(spending_by_category(excel_data_transactions, "Фастфуд"))
+    # print(spending_by_weekday(excel_data_transactions,"03.10.2021"))
     print(spending_by_workday(excel_data_transactions, "03.10.2021"))
