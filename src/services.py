@@ -44,4 +44,3 @@ def profitable_cashback_categories(data: pd.DataFrame, year: int, month: int) ->
 if __name__ == "__main__":
     excel_data_transactions = pd.read_excel("C:\\Users\\Boo_D\\PycharmProjects\\Project_1\\data\\operations.xlsx")
     print(profitable_cashback_categories(excel_data_transactions, 2021, 11))
-
