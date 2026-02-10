@@ -1,7 +1,7 @@
 import pandas as pd
 from pandas.testing import assert_frame_equal
 
-from src.reports import spending_by_weekday, spending_by_category, spending_by_workday
+from src.reports import spending_by_category, spending_by_weekday, spending_by_workday
 
 
 def test_spending_by_category(df_transactions):

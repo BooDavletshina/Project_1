@@ -18,7 +18,7 @@ services_logger = logging.getLogger("services")
 
 @writing_as_json_file
 def profitable_cashback_categories(data: pd.DataFrame, year: int, month: int) -> pd.DataFrame:
-    """Функция для анализа выгодности категорий повышенного кэшбэка."""
+    """Функция для анализа выгодности категорий повышенного кешбэка."""
     try:
         services_logger.info("Начало формирования аналитических данных")
         df_data = data.copy()
