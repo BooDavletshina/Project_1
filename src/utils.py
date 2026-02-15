@@ -1,13 +1,14 @@
 import datetime
 import json
 import os
-import yfinance as yf
 
-import requests
-from dotenv import load_dotenv
 import pandas as pd
+import requests
+import yfinance as yf
+from dotenv import load_dotenv
 
 load_dotenv()
+
 
 def read_transactions_excel(path):
     """Функция для считывания финансовых операций из Excel-файла"""
@@ -93,7 +94,7 @@ def get_currency_rates():
             }
             response = requests.get(url, headers=headers, params=payload)
             result = response.json()
-            currency_rates.append({"currency" : result["base"], "rate" : result["rates"]["RUB"]})
+            currency_rates.append({"currency": result["base"], "rate": result["rates"]["RUB"]})
 
         return currency_rates
 
