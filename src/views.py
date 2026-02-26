@@ -1,8 +1,8 @@
 import json
 import os
 
-from src.utils import get_greeting, read_transactions_excel, get_data_cards, get_top_transactions, get_currency_rates, \
-    get_stock_prices
+from src.utils import (get_currency_rates, get_data_cards, get_greeting, get_stock_prices, get_top_transactions,
+                       read_transactions_excel)
 
 
 def generate_main_page_json():
