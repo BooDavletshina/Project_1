@@ -16,3 +16,7 @@ def df_transactions():
 def df_transactions_excel():
     excel_data_transactions = pd.read_excel("C:\\Users\\Boo_D\\PycharmProjects\\Project_1\\data\\operations.xlsx")
     return excel_data_transactions
+
+@pytest.fixture
+def mock_df():
+    return pd.DataFrame({'id': [1, 2], 'amount': [100, 200]})
