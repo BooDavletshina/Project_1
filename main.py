@@ -4,8 +4,8 @@ import pandas as pd
 
 from src.reports import spending_by_category, spending_by_weekday, spending_by_workday
 from src.services import profitable_cashback_categories
-from src.utils import get_usd_rub, get_stock_prices, get_currency_rates, get_top_transactions, get_data_cards, \
-    get_greeting
+from src.utils import (get_currency_rates, get_data_cards, get_greeting, get_stock_prices, get_top_transactions,
+                       get_usd_rub)
 from src.views import generate_main_page_json
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
