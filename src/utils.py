@@ -54,6 +54,9 @@ def get_data_cards(transactions: pd.DataFrame) -> list[dict]:
     """Функция, которая возвращает данные по каждой карте: последние 4 цифры карты;
      общая сумма расходов; кешбэк (1 рубль на каждые 100 рублей)."""
     try:
+        if transactions.empty:
+            return []
+
         df_transactions = transactions.copy()
 
         df_transactions["Номер карты"] = df_transactions["Номер карты"].str.replace("*", "", regex=False)
@@ -77,6 +80,7 @@ def get_data_cards(transactions: pd.DataFrame) -> list[dict]:
         return list_cards
     except Exception as e:
         utils_logger.error(f'Произошла ошибка: {e}', exc_info=True)
+        return []
 
 
 def get_top_transactions(transactions: pd.DataFrame) -> list[dict]:
